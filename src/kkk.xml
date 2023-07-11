@@ -1,0 +1,19 @@
+<VirtualHost *:80>
+    ServerName oriflame.qnetixtechnologies.com
+    ServerAlias oriflame.qnetixtechnologies.com
+
+    ProxyRequests Off
+    ProxyPreserveHost On
+    ProxyVia Full
+
+    <Proxy *>
+        Require all granted
+    </Proxy>
+
+    ProxyPass / http://127.0.0.1:6262/
+    ProxyPassReverse / http://127.0.0.1:6262/
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =oriflame.qnetixtechnologies.com [OR]
+RewriteCond %{SERVER_NAME} =oriflame.qnetixtechnologies.com
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
